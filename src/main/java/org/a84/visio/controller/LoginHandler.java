@@ -32,7 +32,7 @@ public class LoginHandler {
             final User verif = userDAO.findByUserName(MainController.currentUserName(principal));
             if (verif.getRoles().equals("SADMIN")) {
                 return "redirect:/sadmin";
-            } else if (verif.getRoles().equals("ADMIN")) {
+            } else if (verif.getRoles().equals("MANAGER")) {
                 return "redirect:/manager";
             }
         }
