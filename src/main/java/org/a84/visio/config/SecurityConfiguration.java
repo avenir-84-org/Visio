@@ -20,7 +20,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         super.configure(auth);
     }
 
-
+    /**
+     * Security config
+     * @param http - http
+     * @throws Exception - exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -41,18 +45,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(accessDeniedHandler());
     }
 
-    // Success handler BEAN
+    /**
+     * AuthenticationSuccessHandler Bean.
+     * @return bean
+     */
     @Bean
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         return new AuthenticationHandler();
     }
 
-    // Access denied BEAN
+    /**
+     * AccessDeniedHandler Bean.
+     * @return bean
+     */
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
         return new AccessDenialHandler();
     }
 
+    /**
+     * PasswordEncoder Bean.
+     * @return bean
+     */
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
