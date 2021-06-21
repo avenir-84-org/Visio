@@ -17,8 +17,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-// Handler to redirect user depending on their role
-
 public class AuthenticationHandler implements AuthenticationSuccessHandler {
     protected Log logger = LogFactory.getLog(this.getClass());
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -51,7 +49,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
     }
     protected String determineTargetUrl(final Authentication authentication) {
 
-        Map<String, String> roleTargetUrlMap = new HashMap<>();
+        final Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("ROLE_MANAGER", "/manager");
         roleTargetUrlMap.put("ROLE_SADMIN", "/sadmin");
 
