@@ -1,5 +1,9 @@
 package org.a84.visio.controller;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import org.a84.visio.model.Log;
 import org.a84.visio.service.LogDAO;
 import org.a84.visio.model.User;
@@ -17,28 +21,22 @@ import java.text.DateFormat;
 import java.util.Date;
 
 @Controller
+@RequiredArgsConstructor
 public class UserHandler {
 
     /**
      * User DAO Service.
      */
-    private final UserDAO userDAO;
+    private final @NonNull UserDAO userDAO;
     /**
      * Log DAO Service.
      */
-    private final LogDAO logDAO;
+    private final @NonNull LogDAO logDAO;
     /**
      * Hash pass.
      */
-    private final PasswordEncoder passwordEncoder;
-    /**
-     * Constructor.
-     */
-    public UserHandler(UserDAO userDAO, LogDAO logDAO, PasswordEncoder passwordEncoder) {
-        this.userDAO = userDAO;
-        this.logDAO = logDAO;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final @NonNull PasswordEncoder passwordEncoder;
+
     /**
      * Remove user from db.
      * @param id - int
