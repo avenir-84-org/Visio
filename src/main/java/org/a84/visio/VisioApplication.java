@@ -9,5 +9,4 @@ public class VisioApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VisioApplication.class, args);
 	}
-
 }
