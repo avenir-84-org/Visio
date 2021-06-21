@@ -1,5 +1,8 @@
 package org.a84.visio.controller;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.a84.visio.model.Log;
 import org.a84.visio.service.LogDAO;
 import org.a84.visio.model.User;
@@ -12,25 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
+@Log4j2
 public class DisplayHandler {
-
     /**
      * User DAO Service.
      */
-    private final UserDAO userDAO;
+    private final @NonNull UserDAO userDAO;
     /**
      * Log DAO Service.
      */
-    private final LogDAO logDAO;
-
-    /**
-     * Constructor
-     */
-    public DisplayHandler(UserDAO userDAO, LogDAO logDAO) {
-        this.userDAO = userDAO;
-        this.logDAO = logDAO;
-    }
-
+    private final @NonNull LogDAO logDAO;
     /**
      * Manager display.
      * @return view.
@@ -41,6 +36,7 @@ public class DisplayHandler {
         final List<User> userz = userDAO.findByRoles("FORMATEUR");
         users.addAll(userz);
         model.addAttribute("users", users);
+        LOGGER.info("Users loaded.");
 
         return "manager";
     }
