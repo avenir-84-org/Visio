@@ -1,9 +1,7 @@
 package org.a84.visio.controller;
 
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.Accessors;
 import lombok.extern.log4j.Log4j2;
 import org.a84.visio.model.Log;
 import org.a84.visio.service.LogDAO;
@@ -11,7 +9,6 @@ import org.a84.visio.model.User;
 import org.a84.visio.service.UserDAO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +39,6 @@ public class UserHandler {
     /**
      * Remove user from db.
      * @param id - int
-     * @param model - model
      * @param principal - principal
      * @return view
      * @throws IOException - except
@@ -50,7 +46,6 @@ public class UserHandler {
     @RequestMapping(value = "/remove")
     public String remove(
             @RequestParam("id") final int id,
-            final Model model,
             final Principal principal) throws IOException {
 
         final User user = userDAO.findById(id);

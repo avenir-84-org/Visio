@@ -1,5 +1,8 @@
 package org.a84.visio.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,16 +11,17 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+@NoArgsConstructor
 public class VisioUserDetails implements UserDetails {
 
-    private String userName;
-    private String password;
+    private String userName, password;
+
+    @Getter
+    @Setter
     private int id;
+
     private boolean active;
     private List<GrantedAuthority> authorities;
-
-    public VisioUserDetails() {
-    }
 
     public VisioUserDetails(User u) {
         this.userName = u.getUserName();
@@ -25,9 +29,9 @@ public class VisioUserDetails implements UserDetails {
         this.id = u.getId();
         this.active = u.isActive();
         String[] roles = u.getRoles().split(",");
-        authorities = new LinkedList<GrantedAuthority>();
-        for (int i = 0; i < roles.length; i++) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + roles[i]));
+        authorities = new LinkedList<>();
+        for (String role : roles) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
         }
     }
 
@@ -44,14 +48,6 @@ public class VisioUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return userName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override
