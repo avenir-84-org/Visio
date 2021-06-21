@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="vendor/bootstrap/css/style.css" type="text/css">
+    <title>Visio alpha</title>
+</head>
+<body>
+<div>
+</div>
+<div class='login'>
+    <div class='login_title'>
+        <span>Connexion</span>
+    </div>
+    <form name="f" action="login" method="POST">
+        <div class='login_fields'>
+            <div class='login_fields__user'>
+                <div class='icon'>
+                    <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/user_icon_copy.png'>
+                </div>
+                <input name="username" type="text" class="form-control" id="username" placeholder="Utilisateur" required>
+                <div class='validation'>
+                    <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/tick.png'>
+                </div>
+                </input>
+            </div>
+            <div class='login_fields__password'>
+                <div class='icon'>
+                    <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/lock_icon_copy.png'>
+                </div>
+                <input name="password" type="password" class="form-control" id="exampleInputPassword1"
+                       placeholder="Mot de passe" required>
+                <div class='validation'>
+                    <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/tick.png'>
+                </div>
+            </div>
+            <div class='login_fields__submit'>
+                <input type='submit' value='Connexion'>
+            </div>
+        </div>
+    </form>
+
+    <div class='disclaimer'>
+        <p>Vos accès se seront jamais partagés. Veuillez conserver vos informations secrètes.</p>
+    </div>
+</div>
+
+</body>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</html>
+

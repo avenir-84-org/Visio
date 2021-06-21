@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Lien pour biblio Bootstrap -->
+  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css" type="text/css">
+  <!-- Lien pour biblio typo -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <!-- Lien pour biblio Jquery Datatable pour la pagination -->
+  <link rel="stylesheet" href="../vendor/DataTables/datatables.min.css" type="text/css">
+  <!-- Lien pour fichier css -->
+
+  <title> viSio </title>
+
+</head>
+
+<body>
+<h1>Super admin / Logs</h1>
+
+
+<p>
+  <a href="/sadmin" role="button" class="btn btn-secondary ml-2">Retour</a>
+</p>
+<table class="table table-light table-borderless table-striped table-responsive-md" id="DataTables">
+
+  <thead class="thead-dark">
+  <tr>
+    <th>#</th>
+    <th>Username</th>
+    <th>Rôle</th>
+    <th>Action</th>
+    <th>Username</th>
+    <th>Rôle</th>
+    <th>Date de l'action</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="log : ${logs}">
+    <td th:text="${log.id}"></td>
+    <td th:text="${log.username}"></td>
+    <td th:text="${log.role}"></td>
+    <td th:text="${log.action}"></td>
+    <td th:text="${log.actionUserName}"></td>
+    <td th:text="${log.actionRole}"></td>
+    <td th:text="${log.date}"></td>
+  </tr>
+  </tbody>
+</table>
+
+
+<script src="../js/bootstrap.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../vendor/jquery/jquery-3.5.1.min.js"></script>
+<script src="../vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="../vendor/DataTables/datatables.min.js"></script>
+<script src="../js/main.js"></script>
+
+</body>
+
+</html>
