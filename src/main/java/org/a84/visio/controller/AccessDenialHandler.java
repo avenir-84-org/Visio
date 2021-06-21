@@ -11,13 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// Redirect user if access is denied
-
 public class AccessDenialHandler implements AccessDeniedHandler {
-
+    /**
+     * Logger.
+     */
     public static final Logger LOG
             = Logger.getLogger(AccessDenialHandler.class);
 
+    /**
+     * Access denied redirect.
+     * @param request - req
+     * @param response - res
+     * @param exc - exception
+     * @throws IOException - except
+     * @throws ServletException - except
+     */
     @Override
     public void handle(
             HttpServletRequest request,
