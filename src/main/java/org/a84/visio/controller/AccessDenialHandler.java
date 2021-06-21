@@ -39,7 +39,6 @@ public class AccessDenialHandler implements AccessDeniedHandler {
                     + " attempted to access the protected URL: "
                     + request.getRequestURI());
         }
-
         response.sendRedirect(request.getContextPath() + "/accessDenied");
     }
 
