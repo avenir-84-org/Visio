@@ -1,7 +1,7 @@
 package org.a84.visio.config;
 
-import org.a84.visio.controller.AccessDenialHandler;
-import org.a84.visio.controller.AuthenticationHandler;
+import org.a84.visio.controller.handler.AccessDenialHandler;
+import org.a84.visio.controller.handler.AuthenticationHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

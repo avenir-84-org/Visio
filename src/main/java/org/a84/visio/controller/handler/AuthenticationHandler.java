@@ -1,4 +1,4 @@
-package org.a84.visio.controller;
+package org.a84.visio.controller.handler;
 
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;

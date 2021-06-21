@@ -14,8 +14,7 @@ public class Log {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String userName, action, actionUserName, role, actionRole;
-    private String date;
+    private String userName, action, actionUserName, role, actionRole, date;
 
     public Log() {
     }

@@ -1,4 +1,4 @@
-package org.a84.visio.controller;
+package org.a84.visio.controller.handler;
 
 import com.sun.istack.logging.Logger;
 import org.springframework.security.access.AccessDeniedException;
