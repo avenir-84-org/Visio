@@ -5,16 +5,14 @@ import org.a84.visio.service.LogDAO;
 import org.a84.visio.model.User;
 import org.a84.visio.service.UserDAO;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 @Component
 public class InitLoader implements CommandLineRunner {
-
     /**
      * User DAO Service.
      */
@@ -23,17 +21,20 @@ public class InitLoader implements CommandLineRunner {
      * Log DAO Service.
      */
     private final LogDAO logDAO;
-
+    /**
+     * Pass encoder.
+     */
+    private final PasswordEncoder passwordEncoder;
     /**
      * Constructor.
      */
-    public InitLoader(UserDAO userDAO, LogDAO logDAO) {
+    public InitLoader(UserDAO userDAO, LogDAO logDAO, PasswordEncoder passwordEncoder) {
         this.userDAO = userDAO;
         this.logDAO = logDAO;
+        this.passwordEncoder = passwordEncoder;
     }
-
     /**
-     * Run
+     * Init db.
      * @throws Exception - exception
      */
     @Override
@@ -42,8 +43,7 @@ public class InitLoader implements CommandLineRunner {
         if (users.isEmpty()) {
             System.out.println("Adding admin");
             final DateFormat shortDate = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
-        // Creating an ADMIN ACCOUNT at launch
-            final String admin_pw = BCrypt.hashpw("aaa", BCrypt.gensalt(12));
+            final String admin_pw = passwordEncoder.encode("aaa");
             final User admin = new User("admin", admin_pw, true, "SADMIN", shortDate.format(new Date()));
             final Log log = new Log("initializer", "AJOUT", admin.getUserName(), shortDate.format(new Date()), "BOSS", "SADMIN");
             userDAO.save(admin);

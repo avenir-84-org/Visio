@@ -31,7 +31,6 @@ public class UserHandler {
      * Hash pass.
      */
     private final PasswordEncoder passwordEncoder;
-
     /**
      * Constructor.
      */
@@ -40,7 +39,6 @@ public class UserHandler {
         this.logDAO = logDAO;
         this.passwordEncoder = passwordEncoder;
     }
-
     /**
      * Remove user from db.
      * @param id - int
