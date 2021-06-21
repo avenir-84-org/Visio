@@ -9,17 +9,26 @@ import java.security.Principal;
 
 @Controller
 public class MainController {
-
+    /**
+     * User DAO Service.
+     */
     private final UserDAO userDAO;
 
+    /**
+     * Controller.
+     */
     public MainController(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
+    /**
+     * Login page
+     * @return view
+     */
     @GetMapping("/")
-    public String home(Principal principal) {
+    public String home(final Principal principal) {
         if (principal != null) {
-            User verif = userDAO.findByUserName(currentUserName(principal));
+            final User verif = userDAO.findByUserName(currentUserName(principal));
             if (verif.getRoles().equals("SADMIN")) {
                 return "redirect:/sadmin";
             } else if (verif.getRoles().equals("MANAGER")) {
@@ -29,17 +38,29 @@ public class MainController {
         return "login";
     }
 
+    /**
+     * Access Denied Page
+     * @return view
+     */
     @RequestMapping("/accessDenied")
     public String deny() {
         return "accessDenied";
     }
 
+    /**
+     * Get current username.
+     * @return username
+     */
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     @ResponseBody
-    public static String currentUserName(Principal principal) {
+    public static String currentUserName(final Principal principal) {
         return principal.getName();
     }
 
+    /**
+     * All mapping redirect
+     * @return view
+     */
     @RequestMapping("*")
     public String def() {
         return "login";
