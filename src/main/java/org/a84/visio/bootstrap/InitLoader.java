@@ -42,8 +42,10 @@ public class InitLoader implements CommandLineRunner {
             final DateFormat shortDate = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
             final String admin_pw = passwordEncoder.encode("aaa");
             final User admin = new User("admin", admin_pw, true, "SADMIN", shortDate.format(new Date()));
+            final User admin2 = new User("admin2", admin_pw, true, "MANAGER", shortDate.format(new Date()));
             final Log log = new Log("initializer", "AJOUT", admin.getUserName(), shortDate.format(new Date()), "BOSS", "SADMIN");
             userDAO.save(admin);
+            userDAO.save(admin2);
             logDAO.save(log);
             LOGGER.info("Done.");
         }

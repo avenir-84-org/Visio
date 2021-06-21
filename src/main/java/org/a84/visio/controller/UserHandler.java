@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
+import lombok.extern.log4j.Log4j2;
 import org.a84.visio.model.Log;
 import org.a84.visio.service.LogDAO;
 import org.a84.visio.model.User;
@@ -22,6 +23,7 @@ import java.util.Date;
 
 @Controller
 @RequiredArgsConstructor
+@Log4j2
 public class UserHandler {
 
     /**
@@ -53,10 +55,12 @@ public class UserHandler {
 
         final User user = userDAO.findById(id);
         userDAO.deleteById(id);
+        LOGGER.info("Removed user: {}", user.getUserName());
         if (user.getRoles().equals("FORMATEUR")) {
             final String username = user.getUserName();
             final String co = "echo aaa| ssh -tt avenir@avenir843.pro.dns-orange.fr sudo prosodyctl deluser " + username + "@avenir843.pro.dns-orange.fr";
             final Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", co});
+            LOGGER.info("Removed formateur: {}", user.getUserName());
         }
         final DateFormat shortDate = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
         final User currentLogged = userDAO.findByUserName(MainController.currentUserName(principal));
@@ -88,7 +92,6 @@ public class UserHandler {
             final Principal principal) throws InterruptedException, IOException {
 
         final DateFormat shortDate = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
-
         final User user = userDAO.findById(id);
         final String username = user.getUserName();
 
@@ -96,6 +99,7 @@ public class UserHandler {
             user.setRoles(role);
             user.setDate(shortDate.format(new Date()));
             userDAO.save(user);
+            LOGGER.info("Added user: {}", user.getUserName());
             final User currentLogged = userDAO.findByUserName(MainController.currentUserName(principal));
             final Log log = new Log(currentLogged.getUserName(), "RÔLE MODIFIÉ", user.getUserName(), shortDate.format(new Date()), currentLogged.getRoles(), user.getRoles());
             logDAO.save(log);
@@ -143,6 +147,7 @@ public class UserHandler {
             // Create user
             final User user = new User(username, hPass, true, accessLevel, shortDate.format(new Date()));
             userDAO.save(user);
+            LOGGER.info("Added user: {}", user.getUserName());
             // Save logs
             final User currentLogged = userDAO.findByUserName(MainController.currentUserName(principal));
             final Log log = new Log(currentLogged.getUserName(), "AJOUT", user.getUserName(), shortDate.format(new Date()), currentLogged.getRoles(), user.getRoles());
@@ -177,6 +182,7 @@ public class UserHandler {
             if (username != null && password != null) {
                 final String hPass = passwordEncoder.encode(password);
                 final User acc = new User(username, hPass, true, "FORMATEUR", shortDate.format(new Date()));
+                LOGGER.info("Added user: {}", user.getUserName());
                 userDAO.save(acc);
                 final String co = "echo aaa| ssh -tt avenir@avenir843.pro.dns-orange.fr sudo prosodyctl register " + username + " avenir843.pro.dns-orange.fr " + password;
                 final Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", co});
@@ -211,6 +217,7 @@ public class UserHandler {
         user.setPassword(hPass);
         user.setDate(shortDate.format(new Date()));
         userDAO.save(user);
+        LOGGER.info("Password changed for user: {}", user.getUserName());
 
         // Saving logs
         final User currentLogged = userDAO.findByUserName(MainController.currentUserName(principal));
