@@ -1,5 +1,6 @@
 package org.a84.visio.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.a84.visio.model.User;
 import org.a84.visio.service.UserDAO;
 import org.springframework.stereotype.Controller;
@@ -8,19 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
     /**
      * User DAO Service.
      */
     private final UserDAO userDAO;
-
-    /**
-     * Controller.
-     */
-    public MainController(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
     /**
      * Login page
      * @return view
@@ -37,7 +31,6 @@ public class MainController {
         }
         return "login";
     }
-
     /**
      * Access Denied Page
      * @return view
@@ -46,7 +39,6 @@ public class MainController {
     public String deny() {
         return "accessDenied";
     }
-
     /**
      * Get current username.
      * @return username
@@ -56,7 +48,6 @@ public class MainController {
     public static String currentUserName(final Principal principal) {
         return principal.getName();
     }
-
     /**
      * All mapping redirect
      * @return view
@@ -65,5 +56,4 @@ public class MainController {
     public String def() {
         return "login";
     }
-
 }

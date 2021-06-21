@@ -1,6 +1,7 @@
 package org.a84.visio.controller;
 
-import org.a84.visio.service.LogDAO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.a84.visio.model.User;
 import org.a84.visio.service.UserDAO;
 import org.springframework.stereotype.Controller;
@@ -9,19 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 
 @Controller
+@RequiredArgsConstructor
+@Log4j2
 public class LoginHandler {
     /**
      * User DAO Service.
      */
     private final UserDAO userDAO;
-
-    /**
-     * Constructor injection.
-     */
-    public LoginHandler(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
     /**
      * Login display.
      * @return view
@@ -31,8 +26,10 @@ public class LoginHandler {
         if (principal != null) {
             final User verif = userDAO.findByUserName(MainController.currentUserName(principal));
             if (verif.getRoles().equals("SADMIN")) {
+                LOGGER.trace("Successfully logged in to SADMIN");
                 return "redirect:/sadmin";
             } else if (verif.getRoles().equals("MANAGER")) {
+                LOGGER.trace("Successfully logged in to MANAGER");
                 return "redirect:/manager";
             }
         }
