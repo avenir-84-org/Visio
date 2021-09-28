@@ -103,6 +103,8 @@ public class AddUserController {
                 final String shellH = env.getProperty("visio.h");
                 final String co = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo prosodyctl register " + username + " " + shellH + " " + password;
                 final Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", co});
+                final String co3 = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo systemctl restart prosody.service";
+                final Process p3 = Runtime.getRuntime().exec(new String[]{"bash", "-c", co3});
                 // Save logs
                 final User currentLogged = userDAO.findByUserName(MainController.currentUserName(principal));
                 final Log log = new Log(currentLogged.getUserName(), "AJOUT", acc.getUserName(), shortDate.format(new Date()), currentLogged.getRoles(), acc.getRoles());
