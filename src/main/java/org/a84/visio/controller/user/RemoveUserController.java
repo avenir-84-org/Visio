@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
@@ -34,6 +34,12 @@ public class RemoveUserController {
      * Hash pass.
      */
     private final @NonNull PasswordEncoder passwordEncoder;
+
+
+
+    @Autowired
+    private Environment env;
+
     /**
      * Remove user from db.
      * @param id - int
@@ -51,7 +57,11 @@ public class RemoveUserController {
         LOGGER.info("Removed user: {}", user.getUserName());
         if (user.getRoles().equals("FORMATEUR")) {
             final String username = user.getUserName();
-            final String co = "echo aaa| ssh -tt avenir@avenir843.pro.dns-orange.fr sudo prosodyctl deluser " + username + "@avenir843.pro.dns-orange.fr";
+
+            final String shellU = env.getProperty("visio.u");
+            final String shellP = env.getProperty("visio.p");
+            final String shellH = env.getProperty("visio.h");
+            final String co = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo prosodyctl deluser " + username + " " + shellH;
             final Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", co});
             LOGGER.info("Removed formateur: {}", user.getUserName());
         }

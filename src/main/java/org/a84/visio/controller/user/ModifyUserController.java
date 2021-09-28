@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
@@ -36,6 +36,10 @@ public class ModifyUserController {
      * Hash pass.
      */
     private final @NonNull PasswordEncoder passwordEncoder;
+
+
+    @Autowired
+    private Environment env;
 
     /**
      * Modify user from db.
@@ -69,10 +73,13 @@ public class ModifyUserController {
         }
 
         else {
-            final String co = "echo aaa| ssh -tt avenir@avenir843.pro.dns-orange.fr sudo prosodyctl deluser " + username + "@avenir843.pro.dns-orange.fr";
+            final String shellU = env.getProperty("visio.u");
+            final String shellP = env.getProperty("visio.p");
+            final String shellH = env.getProperty("visio.h");
+            final String co = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo prosodyctl deluser " + username + " " + shellH;
             final Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", co});
-            Thread.sleep(200);
-            final String co2 = "echo aaa| ssh -tt avenir@avenir843.pro.dns-orange.fr sudo prosodyctl register " + username + " avenir843.pro.dns-orange.fr " + password;
+            Thread.sleep(200); // TODO: LOL that scrappy concurrence avoidance
+            final String co2 = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo prosodyctl register " + username + " " + shellH + " " + password;
             final Process p2 = Runtime.getRuntime().exec(new String[]{"bash", "-c", co2});
             final User currentLogged = userDAO.findByUserName(MainController.currentUserName(principal));
             final Log log = new Log(currentLogged.getUserName(), "MDP CHANGÉ", user.getUserName(), shortDate.format(new Date()), currentLogged.getRoles(), user.getRoles());

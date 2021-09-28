@@ -4,6 +4,12 @@
 
 On a Ubuntu 20.04 LTS server base, follow [these instructions](https://www.digitalocean.com/community/tutorials/how-to-install-jitsi-meet-on-ubuntu-20-04).
 
+## install the database server
+
+```
+sudo apt install mysql-server
+```
+
 ## create utility user to run prosody commands
 
 - name: a84

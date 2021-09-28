@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
@@ -35,6 +35,11 @@ public class AddUserController {
      * Hash pass.
      */
     private final @NonNull PasswordEncoder passwordEncoder;
+
+
+    @Autowired
+    private Environment env;
+
     /**
      * Add user / log to the db.
      * @param username - str
@@ -92,7 +97,10 @@ public class AddUserController {
                 final User acc = new User(username, hPass, true, "FORMATEUR", shortDate.format(new Date()));
                 LOGGER.info("Added user: {}", user.getUserName());
                 userDAO.save(acc);
-                final String co = "echo aaa| ssh -tt avenir@avenir843.pro.dns-orange.fr sudo prosodyctl register " + username + " avenir843.pro.dns-orange.fr " + password;
+                final String shellU = env.getProperty("visio.u");
+                final String shellP = env.getProperty("visio.p");
+                final String shellH = env.getProperty("visio.h");
+                final String co = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo prosodyctl register " + username + " " + shellH + " " + password;
                 final Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", co});
                 // Save logs
                 final User currentLogged = userDAO.findByUserName(MainController.currentUserName(principal));
