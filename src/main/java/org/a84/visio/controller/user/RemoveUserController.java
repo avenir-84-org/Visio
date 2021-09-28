@@ -64,6 +64,7 @@ public class RemoveUserController {
             final String shellH = env.getProperty("visio.h");
             final String co = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo prosodyctl deluser " + username + " " + shellH;
             final Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", co});
+            Thread.sleep(200); // TODO: LOL that scrappy concurrence avoidance
             final String co3 = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo systemctl restart prosody.service";
             final Process p3 = Runtime.getRuntime().exec(new String[]{"bash", "-c", co3});
             LOGGER.info("Removed formateur: {}", user.getUserName());

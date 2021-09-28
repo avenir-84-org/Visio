@@ -88,6 +88,9 @@ public class ModifyUserController {
             final String co3 = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo systemctl restart prosody.service";
             final Process p3 = Runtime.getRuntime().exec(new String[]{"bash", "-c", co3});
             logDAO.save(log);
+            LOGGER.info(co);
+            LOGGER.info(co2);
+            LOGGER.info(co3);
         }
 
         final User verif = userDAO.findByUserName(MainController.currentUserName(principal));
