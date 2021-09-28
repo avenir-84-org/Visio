@@ -52,7 +52,7 @@ public class RemoveUserController {
     @RequestMapping(value = "/remove")
     public String remove(
             @RequestParam("id") final int id,
-            final Principal principal) throws IOException {
+            final Principal principal) throws IOException, InterruptedException {
 
         final User user = userDAO.findById(id);
         userDAO.deleteById(id);
