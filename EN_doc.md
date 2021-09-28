@@ -27,15 +27,17 @@ Match   User    a84
 ```
 
 
-# Run
+# Run the spring boot app **as the utility user**
 
 Before running the application, you need to, well, get it.
 
-Use git to recover the code on your server:
+Change to the utility user and then use git to recover the code on your server
 
 ```
 sudo apt instal git
-git clone git@github.com:avenir-84-org/Visio.git
+su a84
+cd
+git clone https://github.com/avenir-84-org/Visio
 ```
 
 This will create a subfolder `Visio/` in the current directory.
