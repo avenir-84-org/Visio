@@ -9,4 +9,6 @@
 # TODO
 
 - [ ] complete documentation
-- [ ] remove hardcoded values
+- [x] remove hardcoded values
+- [ ] jitsi subdir migration
+- [ ] nginx proxy app
