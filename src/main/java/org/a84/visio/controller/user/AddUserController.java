@@ -106,11 +106,12 @@ public class AddUserController {
                 Thread.sleep(200); // TODO: LOL that scrappy concurrence avoidance
                 final String co3 = "echo " + shellP + "| ssh -tt " + shellU + "@"+ shellH +" sudo systemctl restart prosody.service";
                 final Process p3 = Runtime.getRuntime().exec(new String[]{"bash", "-c", co3});
+                Thread.sleep(200); // TODO: LOL that scrappy concurrence avoidance
                 // Save logs
                 final User currentLogged = userDAO.findByUserName(MainController.currentUserName(principal));
                 final Log log = new Log(currentLogged.getUserName(), "AJOUT", acc.getUserName(), shortDate.format(new Date()), currentLogged.getRoles(), acc.getRoles());
-                LOGGER.info(co);
-                LOGGER.info(co3);
+                LOGGER.info("cmd: {}", co);
+                LOGGER.info("cmd: {}", co3);
                 logDAO.save(log);
             }
         }
