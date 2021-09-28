@@ -101,10 +101,10 @@ public class AddUserController {
                 final String shellU = env.getProperty("visio.u");
                 final String shellP = env.getProperty("visio.p");
                 final String shellH = env.getProperty("visio.h");
-                final String co = "echo " + shellP + "| ssh -qT " + shellU + "@"+ shellH +" sudo prosodyctl register " + username + " " + shellH + " " + password;
+                final String co = "echo " + shellP + "| sudo -S prosodyctl register " + username + " " + shellH + " " + password;
                 final Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", co});
                 Thread.sleep(200); // TODO: LOL that scrappy concurrence avoidance
-                final String co3 = "echo " + shellP + "| ssh -qT " + shellU + "@"+ shellH +" sudo systemctl restart prosody.service";
+                final String co3 = "echo " + shellP + "| sudo -S systemctl restart prosody.service";
                 final Process p3 = Runtime.getRuntime().exec(new String[]{"bash", "-c", co3});
                 Thread.sleep(200); // TODO: LOL that scrappy concurrence avoidance
                 // Save logs
