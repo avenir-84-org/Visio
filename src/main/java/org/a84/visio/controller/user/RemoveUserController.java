@@ -47,6 +47,7 @@ public class RemoveUserController {
      * @param principal - principal
      * @return view
      * @throws IOException - except
+     * @throws InterruptedException - exception
      */
     @RequestMapping(value = "/remove")
     public String remove(
